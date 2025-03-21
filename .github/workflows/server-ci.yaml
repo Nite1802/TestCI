@@ -18,6 +18,7 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H 18.141.13.211 >> ~/.ssh/known_hosts
 
       - name: SSH connect to server and run
         run: |
