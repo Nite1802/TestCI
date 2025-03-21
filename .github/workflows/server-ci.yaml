@@ -22,7 +22,7 @@ jobs:
 
       - name: SSH connect to server and run
         run: |
-          USER=root
+          USER=ubuntu
           SERVER_IP=18.141.13.211
           ssh -i ~/.ssh/id_rsa $USER@$SERVER_IP << EOF
             cd /Test/TestCI/
