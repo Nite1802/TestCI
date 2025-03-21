@@ -1,0 +1,31 @@
+name: test-connection
+
+on:
+  push:
+    branches: [ "main" ]
+  
+
+jobs:
+  connection:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: SSH Key configurations
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+      - name: SSH connect to server and run
+        run: |
+          USER=root
+          SERVER_IP=18.141.13.211
+          ssh -i ~/.ssh/id_rsa $USER:$SERVER_IP << EOF
+            cd /Test/TestCI/
+            echo "Connect to local"
+            git pull origin main
+            echo "hello xin chao" >> hello_from_client.txt
+          <<EOF
